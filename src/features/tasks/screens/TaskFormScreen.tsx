@@ -38,6 +38,7 @@ export const TaskFormScreen = ({ navigation }: Props) => {
 
     try {
       // fetch: PUT/POST request.
+      // NOTA: JSONPlaceholder simula la creación. Devuelve un ID (siempre 201) pero no guarda el objeto.
       const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
         method: 'POST',
         headers: {
@@ -46,7 +47,7 @@ export const TaskFormScreen = ({ navigation }: Props) => {
         body: JSON.stringify({
           title: title.trim(),
           completed: false,
-          userId: 1,
+          userId: 1, // Hardcoded: En una app real, vendría del contexto de autenticación.
         }),
       });
 

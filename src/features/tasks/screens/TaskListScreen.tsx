@@ -30,6 +30,8 @@ export const TaskListScreen = ({ navigation }: TaskListScreenProps) => {
     navigation.navigate('TaskDetail', { taskId });
   }, [navigation]);
 
+  // useMemo: Calcula valores derivados (filtrado) y los memoriza.
+  // Solo se recalcula si 'tasks' o 'filterType' cambian, optimizando el rendimiento.
   const filteredTasks = useMemo(() => {
     switch (filterType) {
       case 'completed':

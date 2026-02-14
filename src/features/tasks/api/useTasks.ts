@@ -18,6 +18,7 @@ export const useTasks = () => {
             setIsLoading(true);
             setError(null);
             // fetch: API nativa del navegador/RN para hacer peticiones HTTP.
+            // NOTA: Usamos JSONPlaceholder, por lo que los datos son de prueba.
             const response = await fetch(`${API_URL}?_limit=20`);
 
             if (!response.ok) {
@@ -35,6 +36,7 @@ export const useTasks = () => {
     }, []); // Dependencias vacías: esta función no depende de variables externas que cambien.
 
     // useEffect: Ejecuta efectos secundarios (como llamadas a API) después del renderizado.
+    // En un proyecto real, aquí usaríamos librerías como TanStack Query para manejo de caché y reintentos.
     useEffect(() => {
         fetchTasks();
     }, [fetchTasks]); // Se ejecuta cuando fetchTasks cambia (o sea, al montar, gracias a useCallback).

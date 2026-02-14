@@ -32,15 +32,16 @@ export const TaskDetailScreen = ({ route, navigation }: Props) => {
       {
         text: 'Eliminar',
         style: 'destructive',
-        onPress: async () => {  // ← async AQUÍ
-          try {  // ← try-catch AQUÍ
+        onPress: async () => {
+          try {
+            // NOTA: En JSONPlaceholder, el DELETE es simulado. El recurso no se borra realmente del servidor.
             const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${taskId}`, { method: 'DELETE' });
             if (!response.ok) throw new Error('Error al eliminar');
 
             Alert.alert('Éxito', 'Tarea eliminada', [
               { text: 'OK', onPress: () => navigation.goBack() }
             ]);
-          } catch (error) {  // ← AHORA SÍ atrapa errores
+          } catch (error) {
             Alert.alert('Error', 'No se pudo eliminar');
           }
         }
@@ -48,11 +49,12 @@ export const TaskDetailScreen = ({ route, navigation }: Props) => {
     ]);
   };
 
-  const handleUpdate = async () => {  // ← async
+  const handleUpdate = async () => {
     if (!task) return;
 
     try {
-      const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${taskId}`, {  // ← await
+      // NOTA: El PUT también es simulado.
+      const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -63,7 +65,8 @@ export const TaskDetailScreen = ({ route, navigation }: Props) => {
 
       if (!response.ok) throw new Error('Error al actualizar');
 
-      // Actualiza el estado local (opcional pero mejor UX)
+      // Actualizamos el estado local manualmente para reflejar el cambio en la UI inmediatamente (Optimistic Update simulado)
+      // ya que la API no guarda el cambio real.
       setTask({ ...task, completed: !task.completed });
 
       Alert.alert('Éxito', 'Tarea actualizada');
